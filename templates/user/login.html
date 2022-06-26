@@ -1,0 +1,107 @@
+{% extends "sub_layout.html" %}
+
+{% load static %}
+{% block link %}
+    <a href="{% url 'register'%}" class="order_online">회원가입</a>
+{% endblock %}
+{% block content %}
+
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="{% static 'assets/index.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg custom_nav-container ">
+                <a class="navbar-brand" href="{% url 'index'%}">
+                    <span>StudyLab</span>
+                </a>
+            
+                <button class="navbar-toggler" type="button" data-toggle="collapse"
+                    data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class=""></span>
+                </button>
+            
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav  mx-auto "></ul>
+                    <div class="user_option">
+                        <a href="{% url 'register'%}" class="order_online">회원가입</a>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+
+<!-- book section -->
+<section class="book_section layout_padding">
+    <div class="container">
+        {% if user.is_anonymous %}
+            <div class="heading_container">
+                <h2> 로그인</h2>
+                {% if msg %}
+                    <p class="msg_">{{ msg }}</p>
+                {% endif %}
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form_container">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div>
+                                {{ form.user_id }}
+                            </div>
+                            <div>
+                                {{ form.password }}
+                            </div>
+                            
+                            <div class="btn_box">
+                                <button>로그인</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+        {% if user.is_authenticated %}
+            <div class="heading_container">
+                <h2>로그인</h2> 
+                <p class="msg_">이미 로그인 중입니다.</p>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form_container">
+                            <br/><br/><br/>
+                            <form action="{% url 'logout' %}">
+                                <div class="btn_box">
+                                    <button>로그아웃 하기</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>    
+        {% endif %}
+    </div>
+</section>
+<!-- end book section -->
+<br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="footer-info">
+            <p> &copy; <span id="displayYear"></span> 
+                All Rights Reserved By <a href="https://html.design/">Free Html Templates</a>
+                <br> <br>
+                &copy;
+                <span id="displayYear"></span>
+                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+
+{% endblock %}
