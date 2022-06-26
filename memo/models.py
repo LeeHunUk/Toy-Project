@@ -26,6 +26,8 @@ class Memos(TimeStampedModel):
     content = models.CharField(max_length=1000)
     writer = models.ForeignKey(Users, on_delete=models.CASCADE)
     img = models.FileField(upload_to="")
+    view = models.BigIntegerField(default=0)
+    like = models.BigIntegerField(default=0)
     labels = models.ManyToManyField('Labels', related_name='memos')
 
 
