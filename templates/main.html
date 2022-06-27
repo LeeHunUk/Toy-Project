@@ -49,28 +49,56 @@
         <div class="container ">
             <div class="row">
                 <div class="col-md-6  ">
-                    <div class="box ">
-                        <div class="img-box">
-                            <img src="{{view.0.img.url}}" alt="">
+                    {% if view %}
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="{{view.0.img.url}}" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>조회수 1st ( {{view.0.view}}회 )</h5>
+                                <h6><span>{{view.0.title}}</span> ({{view.0.writer}})</h6>
+                                <a href="">확인하러 가기</a>
+                            </div>
                         </div>
-                        <div class="detail-box">
-                            <h5>조회수 1st ( {{view.0.view}}회 )</h5>
-                            <h6><span>{{view.0.title}}</span> ({{view.0.writer}})</h6>
-                            <a href="">확인하러 가기</a>
+                    {% else %}
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="{% static 'assets/null.png' %}" alt=""
+                                    style="margin-top:17px">
+                            </div>
+                            <div class="detail-box">
+                                <h5>조회수 1st</h5>
+                                <h6><span>메모를 작성해주세요</span></h6>
+                                <a href="">작성하러 가기</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
                 <div class="col-md-6  ">
-                    <div class="box ">
-                        <div class="img-box">
-                            <img src="{{like.0.img.url}}" alt="">
+                    {% if like %}
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="{{like.0.img.url}}" alt="">
+                            </div>
+                            <div class="detail-box">
+                                <h5>좋아요 1st ( ♥ {{like.0.view}} )</h5>
+                                <h6> <span>{{like.0.title}}</span> ({{like.0.writer}})</h6>
+                                <a href="">확인하러 가기</a>
+                            </div>
                         </div>
-                        <div class="detail-box">
-                            <h5>좋아요 1st ( ♥ {{like.0.view}} )</h5>
-                            <h6> <span>{{like.0.title}}</span> ({{like.0.writer}})</h6>
-                            <a href="">확인하러 가기</a>
+                    {% else %}
+                        <div class="box ">
+                            <div class="img-box">
+                                <img src="{% static 'assets/null.png' %}" alt=""
+                                    style="margin-top:17px">
+                            </div>
+                            <div class="detail-box">
+                                <h5>좋아요 1st</h5>
+                                <h6><span>메모를 작성해주세요</span></h6>
+                                <a href="">작성하러 가기</a>
+                            </div>
                         </div>
-                    </div>
+                    {% endif %}
                 </div>
             </div>
         </div>
@@ -86,39 +114,66 @@
         </div>
 
         <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            {% for m in view %}
-                <li data-filter=".{{m.labels.all.0.label}}">{{m.labels.all.0.label}}</li>
-            {% endfor %}
+            {% if view %}
+                <li class="active" data-filter="*">All</li>
+                {% for m in view %}
+                    <li data-filter=".{{m.labels.all.0.label}}">{{m.labels.all.0.label}}</li>
+                {% endfor %}
+            {% else %}
+                <li class="active" data-filter="*">현재 등록된 메모가 없습니다.</li> 
+            {% endif %}
         </ul>
 
         <div class="filters-content">
             <div class="row grid">
-                {% for m in view %}
-                    <div class="col-sm-6 col-lg-4 all {% for l in m.labels.all %} {{l.label}} {% endfor %}">
+                {% if view %}
+                    {% for m in view %}
+                        <div class="col-sm-6 col-lg-4 all {% for l in m.labels.all %} {{l.label}} {% endfor %}">
+                            <div class="box">
+                                <div>
+                                    <div class="img-box">
+                                        <img src="{{m.img.url}}" alt="{{m.img}}">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h5>{{m.title}}</h5>
+                                        <p>작성자: {{m.writer}}, 조회수 : {{m.view}}회</p>
+                                        <div class="options">
+                                            <h6> - {% for l in m.labels.all %} {{l.label}}&nbsp {% endfor %}</h6>
+                                            <a href="">=)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    {% endfor %}
+                {% else %}
+                    <div class="col-sm-6 col-lg-4 all">
                         <div class="box">
                             <div>
                                 <div class="img-box">
-                                    <img src="{{m.img.url}}" alt="{{m.img}}">
+                                    <img src="{% static 'assets/null.png' %}" alt="">
                                 </div>
                                 <div class="detail-box">
-                                    <h5>{{m.title}}</h5>
-                                    <p>작성자: {{m.writer}}, 조회수 : {{m.view}}회</p>
+                                    <h5>메모를 작성해주세요</h5>
+                                    <p>등록된 메모가 없습니다.</p>
                                     <div class="options">
-                                        <h6> - {% for l in m.labels.all %} {{l.label}}&nbsp {% endfor %}</h6>
+                                        <h6> - </h6>
                                         <a href="">=)</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                {% endfor %}
-                
+                {% endif %}
             </div>
         </div>
         <div class="btn-box">
-            <a href="">더 알아보기</a>
+            {% if view %}
+                <a href="">더 알아보기</a>
+            {% else %}
+                <a href="">메모 작성하러 가기</a>
+            {% endif %}
         </div>
     </div>
 </section>
@@ -132,39 +187,65 @@
         </div>
 
         <ul class="filters_menu">
-            <li class="active" data-filter="*">All</li>
-            {% for m in like %}
-                <li data-filter=".{{m.labels.all.0.label}}">{{m.labels.all.0.label}}</li>
-            {% endfor %}
+            {% if like %}
+                <li class="active" data-filter="*">All</li>
+                {% for m in like %}
+                    <li data-filter=".{{m.labels.all.0.label}}">{{m.labels.all.0.label}}</li>
+                {% endfor %}
+            {% else %}
+                <li class="active" data-filter="*">현재 등록된 메모가 없습니다.</li> 
+            {% endif %}
         </ul>
 
         <div class="filters-content">
             <div class="row grid">
-                {% for m in like %}
-                    <div class="col-sm-6 col-lg-4 all {% for l in m.labels.all %} {{l.label}} {% endfor %}">
+                {% if like %}
+                    {% for m in like %}
+                        <div class="col-sm-6 col-lg-4 all {% for l in m.labels.all %} {{l.label}} {% endfor %}">
+                            <div class="box">
+                                <div>
+                                    <div class="img-box">
+                                        <img src="{{m.img.url}}" alt="{{m.img}}">
+                                    </div>
+                                    <div class="detail-box">
+                                        <h5>{{m.title}}</h5>
+                                        <p>작성자: {{m.writer}}, 좋아요 : {{m.like}}</p>
+                                        <div class="options">
+                                            <h6>{% for l in m.labels.all %} {{l.label}}&nbsp {% endfor %}</h6>
+                                            <a href="">=)</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                {% else %}
+                    <div class="col-sm-6 col-lg-4 all ">
                         <div class="box">
                             <div>
                                 <div class="img-box">
-                                    <img src="{{m.img.url}}" alt="{{m.img}}">
+                                    <img src="{% static 'assets/null.png' %}" alt="">
                                 </div>
                                 <div class="detail-box">
-                                    <h5>{{m.title}}</h5>
-                                    <p>작성자: {{m.writer}}, 좋아요 : {{m.like}}</p>
+                                    <h5>메모를 작성해주세요</h5>
+                                    <p>등록된 메모가 없습니다.</p>
                                     <div class="options">
-                                        <h6>{% for l in m.labels.all %} {{l.label}}&nbsp {% endfor %}</h6>
+                                        <h6> - </h6>
                                         <a href="">=)</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    
-                {% endfor %}
-                
+                {% endif %}
             </div>
         </div>
         <div class="btn-box">
-            <a href="">더 알아보기</a>
+            {% if view %}
+                <a href="">더 알아보기</a>
+            {% else %}
+                <a href="">메모 작성하러 가기</a>
+            {% endif %}
         </div>
     </div>
 </section>

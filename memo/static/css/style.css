@@ -466,16 +466,17 @@ a:focus {
 .offer_section .box .detail-box a {
   display: inline-block;
   padding: 10px 30px;
-  background-color: #ffbe33;
-  color: #ffffff;
+  background-color: #F4E06D;
+  color: #FF7396;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
+  font-size: 20px;
 }
 
 .offer_section .box .detail-box a:hover {
-  background-color: #e69c00;
+  background-color: #FFFFDE;
 }
 
 .offer_section .box .detail-box a svg {
@@ -616,16 +617,17 @@ a:focus {
 .food_section .btn-box a {
   display: inline-block;
   padding: 10px 55px;
-  background-color: #ffbe33;
-  color: #ffffff;
+  background-color: #F4E06D;
+  color: #FF7396;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
   border: none;
+  font-size: 22px;
 }
 
 .food_section .btn-box a:hover {
-  background-color: #e69c00;
+  background-color: #FFFFDE;
 }
 
 .about_section {
@@ -663,8 +665,8 @@ a:focus {
 .about_section .detail-box a {
   display: inline-block;
   padding: 10px 45px;
-  background-color: #ffbe33;
-  color: #ffffff;
+  background-color: #F4E06D;
+  color: #FF7396;
   border-radius: 45px;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -673,7 +675,7 @@ a:focus {
 }
 
 .about_section .detail-box a:hover {
-  background-color: #e69c00;
+  background-color: #FFFFDE;
 }
 
 .book_section {
