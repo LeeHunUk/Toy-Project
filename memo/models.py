@@ -30,6 +30,11 @@ class Memos(TimeStampedModel):
     like = models.BigIntegerField(default=0)
     labels = models.ManyToManyField('Labels', related_name='memos')
 
+    def clicked(self):
+        self.like += 1
+        self.save()
+        return self
+
 
 class Chats(TimeStampedModel):
     memo = models.ForeignKey(Memos, on_delete=models.CASCADE)

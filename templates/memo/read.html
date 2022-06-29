@@ -1,0 +1,106 @@
+{% extends "sub_layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="{% static 'assets/index.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+            {% include 'nav/nav.html' %}
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+
+<!-- about section -->
+
+<section class="about_section layout_padding">
+    <div class="container  ">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="img-box">
+                    <img src="{{view.0.img.url}}" alt="">
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="detail-box">
+                    <div class="heading_container">
+                        <h2>{{view.0.title}} <a class="btnAjax">좋아요</a></h2>
+                    </div>
+                    ----------------------------------
+                    <pre style="margin:50px 0 100px 0;">{{view.0.content}}</pre>
+                    ----------------------------------
+                    <p> 라벨 - 
+                        {% for l in view.0.labels.all %}
+                            {{l.label}}
+                        {% endfor %}
+                    </p>
+                    <p>작성자 - {{view.0.writer}}</p>
+                    <p>좋아요 - {{view.0.like}} ♥ | 조회수 - {{view.0.view}}회</p>
+                    <a href="{% url 'm_update' memo_id=view.0.id%}">수정하기</a> 
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- end about section -->
+
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="footer-info">
+            <p> &copy; <span id="displayYear"></span> 
+                All Rights Reserved By <a href="https://html.design/">Free Html Templates</a>
+                <br> <br>
+                &copy;
+                <span id="displayYear"></span>
+                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+
+<!-- script section -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
+
+<script type="text/javascript">
+    function getCookie(name) {
+        var cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            var cookies = document.cookie.split(';');
+            for (var i = 0; i < cookies.length; i++) {
+                var cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    
+    var csrftoken = getCookie('csrftoken');
+
+    let btnAjax = document.querySelector('.btnAjax');
+    btnAjax.addEventListener('click', e => {
+        $.ajax({
+            url : '/apis/memos/{{view.0.id}}/add_click/',
+            headers: {'X-CSRFToken': csrftoken},
+            type : 'GET',
+            success:function(data){
+                Swal.fire('좋아요!','새로고침 시 적용됩니다.','success')
+            },
+            error: function(e){
+                Swal.fire('안돼',e,'error')
+            }
+        })
+    });
+</script>
+{% endblock %}

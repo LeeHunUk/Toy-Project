@@ -275,7 +275,7 @@ a:focus {
   display: block;
   width: 35px;
   height: 4px;
-  background-color: #ffffff;
+  background-color: #000000;
   margin: 7px 0;
   -webkit-transition: all 0.3s;
   transition: all 0.3s;
@@ -291,7 +291,7 @@ a:focus {
   left: 0;
   height: 100%;
   width: 100%;
-  background-color: #ffffff;
+  background-color: #000000;
   top: -10px;
   border-radius: 5px;
   -webkit-transition: all 0.3s;
@@ -631,8 +631,9 @@ a:focus {
 }
 
 .about_section {
-  background: #222831;
+  background: #203239;
   color: #ffffff;
+  padding: 200px 0 350px 0;
 }
 
 .about_section .row {
@@ -660,6 +661,13 @@ a:focus {
 
 .about_section .detail-box p {
   margin-top: 15px;
+  font-size: 25px;
+}
+
+.about_section .detail-box pre {
+  color: #ffffff;
+  font-family: 'Poor Story', cursive;
+  font-size: 23px;
 }
 
 .about_section .detail-box a {
@@ -672,6 +680,7 @@ a:focus {
   transition: all 0.3s;
   border: none;
   margin-top: 15px;
+  font-size: 23px;
 }
 
 .about_section .detail-box a:hover {
@@ -719,7 +728,7 @@ a:focus {
 }
 
 .book_section .form_container .nice-select .current {
-  font-size: 16px;
+  font-size: 22px;
 }
 
 .book_section .form_container button {

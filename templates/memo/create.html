@@ -1,0 +1,88 @@
+{% extends "sub_layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="{% static 'assets/index.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+            {% include 'nav/nav.html' %}
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+
+<!-- book section -->
+<section class="book_section layout_padding">
+    <div class="container">
+        <div class="heading_container">
+            <h2> 메모 작성하기 </h2>
+            <a style="font-size:32px; color:#F87474" id="keyword" href="{% url 'l_create' %}">
+               ! 메모 작성 전 필요한 키워드 등록하기
+            </a>
+        </div>
+        <form class="row" action="/apis/memos/" method="POST" enctype="multipart/form-data">
+            <div class="col-md-6">
+                <div class="form_container">
+                    {% csrf_token %}
+                    <div>
+                        <input name="title" type="text" class="form-control" placeholder="제목" required="required"/>
+                    </div>
+                    
+                    <div>
+                        <textarea name="content" style="height:350px" class="form-control" placeholder="본문을 입력해주세요" required="required"></textarea>
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form_container">
+                    <div>
+                        <input name="img" type="file" class="form-control" placeholder="제목" required="required"/>
+                    </div>
+                    <div>
+                        <select name="labels" style="height:350px" multiple="multiple" class="form-control" required="required">
+                            <option value="" disabled style="text-align:center">
+                                (다중 선택 가능(Ctrl-Key))
+                            </option>
+                            {% for l in labels %}
+                                <option value="{{l.id}}">
+                                    {{l.label}}
+                                </option>
+                            {% endfor %}
+                            
+                        </select>
+                        <div class="btn_box" style="float:right">
+                            <button>메모 작성하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+    </div>
+</section>
+<!-- end book section -->
+
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="footer-info">
+            <p> &copy; <span id="displayYear"></span> 
+                All Rights Reserved By <a href="https://html.design/">Free Html Templates</a>
+                <br> <br>
+                &copy;
+                <span id="displayYear"></span>
+                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+
+{% endblock %}

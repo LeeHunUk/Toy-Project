@@ -1,5 +1,5 @@
 from django import forms
-from memo.models import Users
+from memo.models import Users, Labels
 from argon2 import PasswordHasher, exceptions  # pip install argon2-cffi
 from django.contrib.auth import login
 
@@ -63,3 +63,22 @@ class LoginForm(forms.Form):
             result = True
 
         return result
+
+
+class LabelForm(forms.Form):
+    label = forms.CharField(
+        max_length=100, required=True,
+        widget=forms.TextInput(
+            attrs={"class": "form-control", "placeholder": "라벨을 등록해주세요."}))
+
+    def save(self, keyword):
+        labels = Labels.objects.filter(label=keyword)
+
+        if labels:
+            msg = "이미 존재하는 라벨입니다."
+        else:
+            msg = "등록이 완료되었습니다."
+            u = Labels(label=keyword)
+            u.save()
+
+        return msg

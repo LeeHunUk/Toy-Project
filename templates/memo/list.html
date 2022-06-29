@@ -1,0 +1,106 @@
+{% extends "sub_layout.html" %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="hero_area">
+    <div class="bg-box">
+        <img src="{% static 'assets/index.jpg' %}" alt="">
+    </div>
+    <!-- header section strats -->
+    <header class="header_section">
+        <div class="container">
+            {% include 'nav/nav.html' %}
+        </div>
+    </header>
+    <!-- end header section -->
+</div>
+
+<!-- view section -->
+
+<section class="food_section layout_padding">
+    <div class="container">
+        <div class="heading_container heading_center">
+            <h2>우리의 메모장</h2>
+        </div>
+
+        <ul class="filters_menu">
+            <li class="active" data-filter="*">All</li>
+            
+            {% for m in view %}
+                <li data-filter=".{{m.labels.all.0.label}}">{{m.labels.all.0.label}}</li>
+            {% endfor %}
+        </ul>
+
+        <div class="filters-content">
+            <div class="row grid">
+                {% for m in view %}
+                    <div class="col-sm-6 col-lg-4 all {% for l in m.labels.all %} {{l.label}} {% endfor %}">
+                        <div class="box">
+                            <div>
+                                <div class="img-box">
+                                    <img src="{{m.img.url}}" alt="{{m.img}}">
+                                </div>
+                                <div class="detail-box">
+                                    <h5>{{m.title}}</h5>
+                                    <p>작성자: {{m.writer}}, 조회수 : {{m.view}}회, ♥ {{m.like}} </p>
+                                    <div class="options">
+                                        <h6> - {% for l in m.labels.all %} {{l.label}}&nbsp {% endfor %}</h6>
+                                        <a href="{% url 'm_retrieve' memo_id=m.id %}">=)</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                {% endfor %}
+            </div>
+        </div>
+        <div class="btn-box">
+            <nav aria-label="Page navigation example">
+                <ul class="pagination">
+                    {% if view.has_previous %}
+                        <li class="page-item">
+                            <a class="page-link" href="?p={{view.previous_page_number }}">이전으로</a>
+                        </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link">첫 페이지 입니다.</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item">
+                        <a class="page-link">{{view.number}}/{{view.paginator.num_pages}}</a>
+                    </li>
+                    {% if view.has_next %}
+                        <li class="page-item">
+                            <a class="page-link" href="?p={{view.next_page_number }}">다음으로</a>
+                        </li>
+                    {% else %}
+                    <li class="page-item">
+                        <a class="page-link" >마지막 페이지입니다.</a>
+                    </li>
+                    {% endif %}
+                </ul>
+              </nav>
+        </div>
+    </div>
+</section>
+<!-- end view section -->
+
+<!-- footer section -->
+<footer class="footer_section">
+    <div class="container">
+        <div class="footer-info">
+            <p> &copy; <span id="displayYear"></span> 
+                All Rights Reserved By <a href="https://html.design/">Free Html Templates</a>
+                <br> <br>
+                &copy;
+                <span id="displayYear"></span>
+                Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
+            </p>
+        </div>
+    </div>
+</footer>
+<!-- footer section -->
+{% endblock %}
